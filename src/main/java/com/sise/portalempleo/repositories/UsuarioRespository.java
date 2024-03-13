@@ -1,5 +1,11 @@
 package com.sise.portalempleo.repositories;
 
-public class UsuarioRespository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sise.portalempleo.entities.Usuario;
+
+public interface UsuarioRespository extends JpaRepository<Usuario, Integer> {
+
+    
     
 }
