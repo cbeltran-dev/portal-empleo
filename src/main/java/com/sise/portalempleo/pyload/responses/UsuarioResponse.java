@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class UsuarioResponse {
-    private Integer idUsuario;
     private TipoUsuario idTipoUsuario;
     private String nombre;
     private String email;
