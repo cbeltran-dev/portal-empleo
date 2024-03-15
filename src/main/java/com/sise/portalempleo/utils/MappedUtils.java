@@ -1,9 +1,30 @@
 package com.sise.portalempleo.utils;
 
-/**
- * MappedUtils
- */
+import com.sise.portalempleo.entities.Usuario;
+import com.sise.portalempleo.pyload.requests.UsuarioRequest;
+import com.sise.portalempleo.pyload.responses.UsuarioResponse;
+
 public class MappedUtils {
 
-    
+    public static Usuario toUsuarioEntity(UsuarioRequest usuarioRequest){
+
+        Usuario usuario = new Usuario();
+        usuario.setTipoUsuario(usuarioRequest.getTipoUsuario());
+        usuario.setNombreUsuario(usuarioRequest.getNombreUsuario());
+        usuario.setEmail(usuarioRequest.getEmail());
+        usuario.setClave(usuarioRequest.getClave());
+        return usuario;
+    }
+
+    public static UsuarioResponse toUsuarioResponse(Usuario usuario){
+
+        UsuarioResponse response = new UsuarioResponse();
+        response.setIdUsuario(usuario.getIdUsuario());
+        response.setTipoUsuario(usuario.getTipoUsuario());
+        response.setNombreUsuario(usuario.getNombreUsuario());
+        response.setEmail(usuario.getEmail());
+        response.setClave(usuario.getClave());
+        return response;
+        
+    }
 }

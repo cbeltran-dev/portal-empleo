@@ -6,8 +6,10 @@ import lombok.Data;
 
 @Data
 public class UsuarioResponse {
-    private TipoUsuario idTipoUsuario;
-    private String nombre;
+    
+    private Integer idUsuario;
+    private TipoUsuario tipoUsuario;
+    private String nombreUsuario;
     private String email;
     private String clave;
 }

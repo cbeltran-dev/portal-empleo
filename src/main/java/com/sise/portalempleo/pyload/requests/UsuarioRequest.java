@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 
 public class UsuarioRequest {
-    private TipoUsuario idTipoUsuario;
-    private String nombre;
+    private TipoUsuario tipoUsuario;
+    private String nombreUsuario;
     private String email;
     private String clave;
 }
