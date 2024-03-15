@@ -20,3 +20,5 @@ public class BaseEntity {
     private Date fechaModificacion;
     
 }
+
+

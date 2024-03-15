@@ -1,5 +1,7 @@
 package com.sise.portalempleo.entities;
 
+import com.sise.portalempleo.shared.BaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -12,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "tipo_usuarios")
-public class TipoUsuario  {
+public class TipoUsuario extends BaseEntity {
     @Id
     @Column(name = "id_tipo_usuario")
     private Integer idTipoUsuario;
@@ -20,3 +22,5 @@ public class TipoUsuario  {
     @Column(name = "descripcion")
     private String descripcion;
 }
+
+

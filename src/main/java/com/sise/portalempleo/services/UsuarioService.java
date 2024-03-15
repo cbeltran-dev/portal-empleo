@@ -1,7 +1,5 @@
 package com.sise.portalempleo.services;
-
 import java.util.List;
-
 import com.sise.portalempleo.entities.Usuario;
 
 public interface UsuarioService {
@@ -11,3 +9,6 @@ public interface UsuarioService {
     Usuario actualizarUsuario(Usuario usuario);
     void darbajaUsuario(Integer idUsuario);
 }
+
+
+
