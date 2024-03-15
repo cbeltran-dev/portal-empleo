@@ -16,7 +16,30 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public List<Usuario> listaUsuarios() {
-        return usuarioRespository.findAll();
+        return usuarioRespository.findByEstadoAuditoria("1");
     }
     
+
+    @Override
+    public Usuario listaUsuarioPorId(Integer idUsuario) {
+        return usuarioRespository.findOneByIdUsuarioAndEstadoAuditoria(idUsuario, "1");
+    }
+
+
+    @Override
+    public Usuario insertarUsuario(Usuario usuario) {
+        return usuarioRespository.save(usuario);
+    }
+
+
+    @Override
+    public Usuario actualizarUsuario(Usuario usuario) {
+        return usuarioRespository.save(usuario);
+    }
+
+
+    @Override
+    public void darbajaUsuario(Integer id) {
+         usuarioRespository.darbajaUsuario(id);
+    }
 }
