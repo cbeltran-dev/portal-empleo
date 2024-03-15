@@ -6,4 +6,5 @@ import com.sise.portalempleo.entities.Usuario;
 
 public interface UsuarioRespository extends JpaRepository<Usuario, Integer> {
 
+    
 }

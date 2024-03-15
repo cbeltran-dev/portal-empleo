@@ -9,7 +9,7 @@ public class MappedUtils {
     public static Usuario toUsuarioEntity(UsuarioRequest usuarioRequest){
 
         Usuario usuario = new Usuario();
-        usuario.setTipoUsuario(usuarioRequest.getTipoUsuario());
+        usuario.setIdTipoUsuario(usuarioRequest.getIdTipoUsuario());
         usuario.setNombreUsuario(usuarioRequest.getNombreUsuario());
         usuario.setEmail(usuarioRequest.getEmail());
         usuario.setClave(usuarioRequest.getClave());
@@ -20,7 +20,7 @@ public class MappedUtils {
 
         UsuarioResponse response = new UsuarioResponse();
         response.setIdUsuario(usuario.getIdUsuario());
-        response.setTipoUsuario(usuario.getTipoUsuario());
+        response.setIdTipoUsuario(usuario.getIdTipoUsuario());
         response.setNombreUsuario(usuario.getNombreUsuario());
         response.setEmail(usuario.getEmail());
         response.setClave(usuario.getClave());
