@@ -14,7 +14,6 @@ public class RegistroPostulacion extends BaseEntity {
     private Date fechaPostulacion;
     private String cartaPresentacion;
     private String estadoPostulacion;
-
 }
 
 

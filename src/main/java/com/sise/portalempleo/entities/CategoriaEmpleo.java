@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @Data
 public class CategoriaEmpleo extends BaseEntity {
-
     private Integer idCategoria;
     private String nombre;
     private String descripcion;
