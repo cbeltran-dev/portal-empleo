@@ -1,6 +1,10 @@
 
 package com.sise.portalempleo.shared;
-import java.sql.Date;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -11,13 +15,17 @@ import lombok.Data;
 public class BaseEntity {
 
     @Column(name = "estado_auditoria", insertable = false, updatable = false)
+    @JsonIgnore
     private String estadoAuditoria;
 
     @Column(name = "fecha_creacion", insertable = false, updatable = false)
-    private Date fechaCreacion;
+    @JsonIgnore
+    private LocalDateTime fechaCreacion;
 
     @Column(name = "fecha_modificacion", insertable = false, updatable = false)
-    private Date fechaModificacion;
+    @JsonIgnore
+    @UpdateTimestamp
+    private LocalDateTime fechaModificacion;
     
 }
 

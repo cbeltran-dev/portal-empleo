@@ -29,12 +29,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario actualizarUsuario(Usuario usuario) {
-        return usuarioRespository.save(usuario);
+        usuarioRespository.actualizarUsuario(usuario.getIdUsuario(), usuario.getTipoUsuario(),usuario.getNombreUsuario(),usuario.getEmail());
+        return usuarioRespository.findOneByIdUsuarioAndEstadoAuditoria(usuario.getIdUsuario(), "1");
     }
 
     @Override
     public void darbajaUsuario(Integer id) {
         usuarioRespository.darbajaUsuario(id);
+    }
+
+    @Override
+    public void cambiarClave(Usuario usuario) {
+        usuarioRespository.cambiarClaveUsuario(usuario.getIdUsuario(), usuario.getClave());
     }
 }
 

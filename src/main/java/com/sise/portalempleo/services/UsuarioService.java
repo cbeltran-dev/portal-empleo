@@ -8,6 +8,7 @@ public interface UsuarioService {
     Usuario insertarUsuario(Usuario usuario);
     Usuario actualizarUsuario(Usuario usuario);
     void darbajaUsuario(Integer idUsuario);
+    void cambiarClave(Usuario usuario);
 }
 
 
