@@ -1,7 +1,6 @@
 package com.sise.portalempleo.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,33 +13,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.sise.portalempleo.Adapters.UsuarioAdapter;
-import com.sise.portalempleo.entities.Usuario;
-import com.sise.portalempleo.pyload.requests.RequestInserts.UsuarioRequestInsert;
-import com.sise.portalempleo.pyload.requests.RequestUpdates.UsuarioRequestUpdate;
-import com.sise.portalempleo.pyload.requests.RequestUpdates.UsuarioRequestUpdateClave;
-import com.sise.portalempleo.services.UsuarioService;
+import com.sise.portalempleo.Adapters.TipoUsuarioAdapter;
+import com.sise.portalempleo.entities.TipoUsuario;
+import com.sise.portalempleo.pyload.requests.TipoUsuarioRequest;
+import com.sise.portalempleo.services.TipoUsuarioSerivice;
 import com.sise.portalempleo.shared.BaseResponse;
 import com.sise.portalempleo.utils.ValidationUtil;
+
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/usuario")
-public class UsuarioController {
+@RequestMapping("/tipoUsuario")
+public class TipoUsuarioController {
     @Autowired
-    private UsuarioService usuarioService;
-    private UsuarioAdapter usuarioAdapter;
+    private TipoUsuarioSerivice tipoUsuarioService;
+    private TipoUsuarioAdapter tipoUsuarioAdapter;
 
-    public UsuarioController() {
-        usuarioAdapter = new UsuarioAdapter();
+    public TipoUsuarioController() {
+        tipoUsuarioAdapter = new TipoUsuarioAdapter();
     }
 
     @GetMapping("")
-    public ResponseEntity<BaseResponse> listarUsuarios() {
+    public ResponseEntity<BaseResponse> listarTipoUsuarios() {
         try {
-            List<Usuario> Usuarios = usuarioService.listaUsuarios();
+            List<TipoUsuario> tipoUsuario = tipoUsuarioService.listaTipoUsuarios();
             return new ResponseEntity<BaseResponse>(
-                    BaseResponse.success(Usuarios),
+                    BaseResponse.success(tipoUsuario),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<BaseResponse>(
@@ -49,18 +47,18 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/{idUsuario}")
-    public ResponseEntity<BaseResponse> listarUsuarioPorId(@PathVariable Integer idUsuario) {
-        try {
-            Usuario usuario = usuarioService.listaUsuarioPorId(idUsuario);
+    @GetMapping("/{idTipoUsuario}")
+    public ResponseEntity<BaseResponse> listarTipoUsuarioPorId(@PathVariable Integer idTipoUsuario) {
 
-            if (usuario == null) {
+        try {
+            TipoUsuario tipoUsuario = tipoUsuarioService.listaTipoUsuarioPorId(idTipoUsuario);
+            if (tipoUsuario == null) {
                 return new ResponseEntity<BaseResponse>(
                         BaseResponse.errorNotFound(),
-                        HttpStatus.NOT_FOUND);
+                        HttpStatus.BAD_REQUEST);
             }
             return new ResponseEntity<BaseResponse>(
-                    BaseResponse.success((usuario)),
+                    BaseResponse.success(tipoUsuario),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<BaseResponse>(
@@ -70,39 +68,19 @@ public class UsuarioController {
     }
 
     @PostMapping("")
-    public ResponseEntity<BaseResponse> insertarUsuario(
-            @Valid @RequestBody UsuarioRequestInsert usuarioRequestInsert, Errors errors) {
-        try {
-            if (errors.hasErrors()) {
-                return new ResponseEntity<BaseResponse>(
-                        BaseResponse.error(ValidationUtil.getOneMessageFromErrors(errors.getFieldErrors())),
-                        HttpStatus.BAD_REQUEST);
-            }
-            Usuario usuario = usuarioService.insertarUsuario(usuarioAdapter.insertToEntity(usuarioRequestInsert));
-            return new ResponseEntity<BaseResponse>(
-                    BaseResponse.success(usuario),
-                    HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<BaseResponse>(
-                    BaseResponse.error(e.getMessage()),
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    public ResponseEntity<BaseResponse> insertarTipoUsuario(
+            @Valid @RequestBody TipoUsuarioRequest tipoUsuarioRequest, Errors errors) {
 
-    @PutMapping("/{idUsuario}")
-    public ResponseEntity<BaseResponse> actualizarUsuario(@PathVariable Integer idUsuario,
-            @Valid @RequestBody UsuarioRequestUpdate usuarioRequestUpdate, Errors errors) {
         try {
-            Usuario usuario = usuarioAdapter.updateToEntity(usuarioRequestUpdate);
-            usuario.setIdUsuario(idUsuario);
-            Usuario newUsuario = usuarioService.actualizarUsuario(usuario);
             if (errors.hasErrors()) {
                 return new ResponseEntity<BaseResponse>(
                         BaseResponse.error(ValidationUtil.getOneMessageFromErrors(errors.getFieldErrors())),
                         HttpStatus.BAD_REQUEST);
             }
+            TipoUsuario tipoUsuario = tipoUsuarioService.insertarTipoUsuario(
+                    tipoUsuarioAdapter.toEntity(tipoUsuarioRequest));
             return new ResponseEntity<BaseResponse>(
-                    BaseResponse.success(newUsuario),
+                    BaseResponse.success(tipoUsuario),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<BaseResponse>(
@@ -111,38 +89,35 @@ public class UsuarioController {
         }
     }
 
-    @PatchMapping("/cambiarClave/{idUsuario}")
-    public ResponseEntity<BaseResponse> cambiarClaveUsuario(
-            @PathVariable Integer idUsuario,
-            @Valid @RequestBody UsuarioRequestUpdateClave usuarioRequestUpdateClave,
-            Errors errors) {
-
+    @PutMapping("{idTipoUsuario}")
+    public ResponseEntity<BaseResponse> actualizarTipoUsuario(@PathVariable Integer idTipoUsuario,
+            @Valid @RequestBody TipoUsuarioRequest tipoUsuarioRequest, Errors errors) {
         try {
+
+            TipoUsuario tipoUsuario = tipoUsuarioAdapter.toEntity(tipoUsuarioRequest);
+            tipoUsuario.setIdTipoUsuario(idTipoUsuario);
+            TipoUsuario newTipoUsuario = tipoUsuarioService.actualizarTipoUsuario(tipoUsuario);
+
             if (errors.hasErrors()) {
                 return new ResponseEntity<BaseResponse>(
                         BaseResponse.error(ValidationUtil.getOneMessageFromErrors(errors.getFieldErrors())),
                         HttpStatus.BAD_REQUEST);
             }
-            Usuario usuario = usuarioAdapter.updateClaveToEntity(usuarioRequestUpdateClave);
-            usuario.setIdUsuario(idUsuario);
-
-            usuarioService.cambiarClave(usuario);
 
             return new ResponseEntity<BaseResponse>(
-                    BaseResponse.success(null),
+                    BaseResponse.success(newTipoUsuario),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<BaseResponse>(
                     BaseResponse.error(e.getMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
-    @PatchMapping("/darbaja/{idUsuario}")
-    public ResponseEntity<BaseResponse> darbajaUsuario(@PathVariable Integer idUsuario) {
+     @PatchMapping("/darbaja/{idTipoUsuario}")
+    public ResponseEntity<BaseResponse> darbajaTipoUsuario(@PathVariable Integer idTipoUsuario) {
         try {
-            usuarioService.darbajaUsuario(idUsuario);
+            tipoUsuarioService.darbajaTipoUsuario(idTipoUsuario);
             return new ResponseEntity<BaseResponse>(
                     BaseResponse.success(null),
                     HttpStatus.OK);

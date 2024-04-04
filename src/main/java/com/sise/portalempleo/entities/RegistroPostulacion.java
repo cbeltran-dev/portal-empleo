@@ -12,7 +12,7 @@ public class RegistroPostulacion extends BaseEntity {
     private Candidato candidato;
     private OfertaTrabajo ofertaTrabajo;
     private Date fechaPostulacion;
-    private String cartaPresentacion;
+    private String curriculumVitae;
     private String estadoPostulacion;
 }
 

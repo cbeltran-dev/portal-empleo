@@ -11,6 +11,7 @@ public class UsuarioRequestUpdate {
     
     @NotNull
     @Positive
+    
     private Integer idTipoUsuario;
 
     @NotNull
@@ -21,9 +22,4 @@ public class UsuarioRequestUpdate {
     @NotBlank
     @Email
     private String email;
-
-    /*@NotNull
-    @NotBlank
-    @Size(min = 8, max = 20)
-    private String clave;*/
 }
