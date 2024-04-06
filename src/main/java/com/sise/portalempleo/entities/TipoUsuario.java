@@ -1,8 +1,5 @@
 package com.sise.portalempleo.entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sise.portalempleo.shared.BaseEntity;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

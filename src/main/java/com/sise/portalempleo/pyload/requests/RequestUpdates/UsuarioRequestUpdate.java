@@ -11,7 +11,6 @@ public class UsuarioRequestUpdate {
     
     @NotNull
     @Positive
-    
     private Integer idTipoUsuario;
 
     @NotNull

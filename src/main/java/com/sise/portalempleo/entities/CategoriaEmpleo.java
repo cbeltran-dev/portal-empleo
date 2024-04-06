@@ -17,15 +17,16 @@ import lombok.EqualsAndHashCode;
 public class CategoriaEmpleo extends BaseEntity {
 
     @Id
-    @Column(name = "id_categoria")
+    @Column(name = "id_categoria_empleo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCategoria;
+    private Integer idCategoriaEmpleo;
 
     @Column(name = "nombre")
     private String nombre;
 
     @Column(name = "descripcion")
     private String descripcion;
+
 
 }
 

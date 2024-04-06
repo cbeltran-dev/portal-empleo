@@ -30,11 +30,11 @@ public class Empleador extends BaseEntity {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "ruc")
-    private String ruc;
-    
     @Column(name = "descripcion")
     private String descripcion;
+
+    @Column(name = "ruc")
+    private String ruc;
 
     @Column(name = "direccion")
     private String direccion;
