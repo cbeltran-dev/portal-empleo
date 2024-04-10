@@ -25,7 +25,7 @@ public interface EmpleadorRepository extends JpaRepository<Empleador, Integer>{
             "e.fotoPerfil = :fotoPerfil, e.fechaModificacion = CURRENT_TIMESTAMP " +
             "WHERE e.idEmpleador = :id")
     void actualizarEmpleador(@Param("id") Integer id, @Param("nombre") String nombre,
-                            @Param("ruc") String ruc, @Param("descripcion") String descripcion,
+                            @Param("descripcion") String descripcion, @Param("ruc") String ruc,
                             @Param("direccion") String direccion,@Param("telefono") String telefono,
                             @Param("fotoPerfil") String fotoPerfil);
 
