@@ -1,8 +1,6 @@
 package com.sise.portalempleo.entities;
 import java.time.LocalDateTime;
-import java.util.Date;
 import com.sise.portalempleo.shared.BaseEntity;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +24,10 @@ public class OfertaTrabajo extends BaseEntity  {
     private Integer idOfertaTrabajo;
 
     @ManyToOne
+    @JoinColumn(name = "id_empleador")
+    private Empleador empleador;
+
+    @ManyToOne
     @JoinColumn(name = "id_categoria_empleo")
     private CategoriaEmpleo categoriaEmpleo;
 
@@ -37,6 +39,9 @@ public class OfertaTrabajo extends BaseEntity  {
 
     @Column(name = "disponibilidad_horaria")
     private String disponibilidadHoraria;
+
+    @Column(name = "turno")
+    private String turno;
 
     @Column(name = "modalidad")
     private String modalidad;
@@ -53,11 +58,11 @@ public class OfertaTrabajo extends BaseEntity  {
     @Column(name = "distrito")
     private String distrito;
 
-    @Column(name = "fecha_publicacion")
+    @Column(name = "fecha_publicacion", insertable = false, updatable = false)
     private LocalDateTime fechaPublicacion;
 
     @Column(name = "fecha_vencimiento")
-    private Date fechaVencimiento;
+    private LocalDateTime fechaVencimiento;
 
     @Column(name = "requisitos")
     private String requisitos;
