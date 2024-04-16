@@ -13,7 +13,9 @@ import jakarta.transaction.Transactional;
 public interface OfertaTrabajoRepository extends JpaRepository<OfertaTrabajo, Integer> {
     
     List<OfertaTrabajo> findByEstadoAuditoria(String estadoAuditoria);
+    List<OfertaTrabajo> findByEstadoOfertaOrderByCategoriaEmpleo(String estadoOferta);
     OfertaTrabajo findOneByIdOfertaTrabajoAndEstadoAuditoria(Integer idOfertaTrabajo, String estadoAuditoria);
+    List<OfertaTrabajo> findByCategoriaEmpleoIdCategoriaEmpleo(Integer idCategoriaEmpleo);
 
     @Modifying
     @Transactional
@@ -41,4 +43,14 @@ public interface OfertaTrabajoRepository extends JpaRepository<OfertaTrabajo, In
     @Transactional
     @Query("UPDATE OfertaTrabajo e SET e.estadoAuditoria = '0', e.fechaModificacion = CURRENT_TIMESTAMP WHERE e.idOfertaTrabajo = :id")
     void darBajaOfertaTrabajo(@Param("id") Integer id);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE OfertaTrabajo e SET e.estadoOferta = 'Inactiva', e.fechaModificacion = CURRENT_TIMESTAMP WHERE e.idOfertaTrabajo = :id")
+    void desactivarOferta(@Param("id") Integer id);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE OfertaTrabajo e SET e.estadoOferta = 'Activa', e.fechaModificacion = CURRENT_TIMESTAMP WHERE e.idOfertaTrabajo = :id")
+    void activarOferta(@Param("id") Integer id);
 }

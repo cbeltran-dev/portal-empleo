@@ -11,5 +11,6 @@ public interface OfertaTrabajoService  {
     OfertaTrabajo insertarOfertaTrabajo(OfertaTrabajo ofertaTrabajo);
     OfertaTrabajo actualizarOfertaTrabajo(OfertaTrabajo ofertaTrabajo);
     void darbajaOfertaTrabajo(Integer idOfertaTrabajo);
-
+    List<OfertaTrabajo> buscarPorCategoriaEmpleo(Integer idCategoriaEmpleo);
+    OfertaTrabajo activarDesactivarOferta(OfertaTrabajo ofertaTrabajo);
 }

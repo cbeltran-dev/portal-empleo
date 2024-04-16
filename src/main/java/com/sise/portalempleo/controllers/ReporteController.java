@@ -18,8 +18,8 @@ public class ReporteController {
     @Autowired
     ReporteService reporteService;
 
-    @GetMapping("/generarProformaPdf")
-    public ResponseEntity<byte[]> generarProformaPdf() {
+    @GetMapping("/generarOfertaTrabajoPdf")
+    public ResponseEntity<byte[]> generarReporteOfertasTrabajoPdf() {
         try {
 
             HttpHeaders headers = new HttpHeaders();
@@ -29,10 +29,10 @@ public class ReporteController {
             // headers.setContentDisposition(ContentDisposition.attachment().filename("proforma.pdf").build());
 
             // Para mostrar el PDF en el navegador (descomenta la línea siguiente)
-            headers.setContentDisposition(ContentDisposition.inline().filename("proforma.pdf").build());
+            headers.setContentDisposition(ContentDisposition.inline().filename("ofertas_activas.pdf").build());
 
             return new ResponseEntity<>(
-                    reporteService.generarProformaPdf(),
+                    reporteService.generarInformeOfertasTrabajoPdf(),
                     headers,
                     HttpStatus.OK);
         } catch (Exception e) {

@@ -124,4 +124,43 @@ public class OfertaTrabajoController {
         }
     }
 
+    @GetMapping("/categoria/{idCategoriaEmpleo}")
+    public ResponseEntity<BaseResponse> buscarPorCategoriaEmpleo(@PathVariable Integer idCategoriaEmpleo) {
+        try {
+        List<OfertaTrabajo> lstOfertaTrabajo = ofertaTrabajoService.buscarPorCategoriaEmpleo(idCategoriaEmpleo);
+
+            if (lstOfertaTrabajo == null || lstOfertaTrabajo.isEmpty()) {
+                return new ResponseEntity<BaseResponse>(
+                        BaseResponse.errorNotFound(),
+                        HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<BaseResponse>(
+                    BaseResponse.success((lstOfertaTrabajo)),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<BaseResponse>(
+                    BaseResponse.error(e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/cambiarEstado/{idOfertaTrabajo}")
+    public ResponseEntity<BaseResponse> activarDesactivarOferta(@PathVariable Integer idOfertaTrabajo) {
+        try {
+            OfertaTrabajo ofertaExistente = ofertaTrabajoService.listaOfertaTrabajoPorId(idOfertaTrabajo);
+            if (ofertaExistente == null) {
+                return new ResponseEntity<BaseResponse>(
+                        BaseResponse.errorNotFound(),
+                        HttpStatus.NOT_FOUND);
+            }
+            OfertaTrabajo ofertaActualizada = ofertaTrabajoService.activarDesactivarOferta(ofertaExistente);
+            return new ResponseEntity<BaseResponse>(
+                    BaseResponse.success(ofertaActualizada),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<BaseResponse>(
+                    BaseResponse.error(e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

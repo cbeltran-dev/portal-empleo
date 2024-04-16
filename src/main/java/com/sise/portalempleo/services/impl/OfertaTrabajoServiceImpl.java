@@ -9,6 +9,8 @@ import com.sise.portalempleo.entities.OfertaTrabajo;
 import com.sise.portalempleo.repositories.OfertaTrabajoRepository;
 import com.sise.portalempleo.services.OfertaTrabajoService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class OfertaTrabajoServiceImpl implements OfertaTrabajoService {
 
@@ -52,5 +54,29 @@ public class OfertaTrabajoServiceImpl implements OfertaTrabajoService {
     public void darbajaOfertaTrabajo(Integer idOfertaTrabajo) {
         ofertaTrabajoRepository.darBajaOfertaTrabajo(idOfertaTrabajo);
     }
-    
+
+    @Override
+    public List<OfertaTrabajo> buscarPorCategoriaEmpleo(Integer idCategoriaEmpleo) {
+        return ofertaTrabajoRepository.findByCategoriaEmpleoIdCategoriaEmpleo(idCategoriaEmpleo);
+    }
+
+    @Override
+    public OfertaTrabajo activarDesactivarOferta(OfertaTrabajo ofertaTrabajo) {
+        
+        if (ofertaTrabajo == null) {
+            return null;
+        }
+        OfertaTrabajo ofertaExistente = ofertaTrabajoRepository.findOneByIdOfertaTrabajoAndEstadoAuditoria(ofertaTrabajo.getIdOfertaTrabajo(), "1");
+        switch (ofertaExistente.getEstadoOferta()) {
+            case "Activa":
+                ofertaTrabajoRepository.desactivarOferta(ofertaExistente.getIdOfertaTrabajo());
+                ofertaExistente.setEstadoOferta("Inactiva");
+                break;
+            case "Inactiva":
+                ofertaTrabajoRepository.activarOferta(ofertaExistente.getIdOfertaTrabajo());
+                ofertaExistente.setEstadoOferta("Activa");
+                break;
+        }
+        return ofertaTrabajoRepository.findOneByIdOfertaTrabajoAndEstadoAuditoria(ofertaTrabajo.getIdOfertaTrabajo(), "1");
+    }
 }

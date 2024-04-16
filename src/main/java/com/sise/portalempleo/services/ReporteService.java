@@ -1,5 +1,5 @@
 package com.sise.portalempleo.services;
 
 public interface ReporteService {
-    public byte[] generarProformaPdf();
+    public byte[] generarInformeOfertasTrabajoPdf();
 }
