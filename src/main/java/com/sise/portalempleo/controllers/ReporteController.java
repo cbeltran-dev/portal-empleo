@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,4 +43,30 @@ public class ReporteController {
 
         }
     }
+
+    @GetMapping("/generarOfertaTrabajoPdf/{idOfertaTrabajo}")
+    public ResponseEntity<byte[]> generarProformaPdf(@PathVariable Integer idOfertaTrabajo) {
+        try {
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+
+            // Para forzar la descarga del archivo (descomenta la línea siguiente)
+            // headers.setContentDisposition(ContentDisposition.attachment().filename("proforma.pdf").build());
+
+            // Para mostrar el PDF en el navegador (descomenta la línea siguiente)
+            headers.setContentDisposition(ContentDisposition.inline().filename("OfertaTrabajo.pdf").build());
+
+            return new ResponseEntity<>(
+                    reporteService.generarOfertaTrabajoPdf(idOfertaTrabajo),
+                    headers,
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<byte[]>(
+                    new byte[] {},
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
+
 }
