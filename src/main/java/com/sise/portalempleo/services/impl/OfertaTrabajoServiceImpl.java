@@ -9,7 +9,7 @@ import com.sise.portalempleo.entities.OfertaTrabajo;
 import com.sise.portalempleo.repositories.OfertaTrabajoRepository;
 import com.sise.portalempleo.services.OfertaTrabajoService;
 
-import jakarta.persistence.EntityNotFoundException;
+
 
 @Service
 public class OfertaTrabajoServiceImpl implements OfertaTrabajoService {
